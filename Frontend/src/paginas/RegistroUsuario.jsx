@@ -552,17 +552,16 @@ const Usuarios = () => {
               value={pesquisa}
               onChange={handlePesquisaChange}
             />
-            {/* <InputButao type="button" value="+ Cliente" onClick={abrirModal} /> */}
-            <>
-      <button onClick={() => setMostrarModal(true)}>+ Cliente</button>
+            {/* <InputButao type="button" value="+ Cliente" onClick={() => setMostrarModal(true)} /> */}
+  
+      
       <ModalCadastroUsuario
         isOpen={mostrarModal}
         onClose={() => setMostrarModal(false)}
         onSuccess={() => {
-          // Aqui você pode recarregar lista de usuários, se quiser
-        }}
+            }}
       />
-    </>
+  
 
           </NavBar>
           <Modal
