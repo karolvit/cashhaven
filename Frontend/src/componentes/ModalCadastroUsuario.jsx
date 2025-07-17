@@ -123,11 +123,14 @@ const ModalCadastroUsuario = ({ isOpen, onRequestClose, onSuccess }) => {
       const res = await apiAcai.post("/client/create", dados);
       if (res.status === 200) {
         toast.success("Cliente cadastrado com sucesso!");
+        window.location.reload();
+        navigate("/home");
+        fecharModal();
         setName("");
         setCpf("");
         setTelefone("");
-        onRequestClose(); // fecha modal
-        if (onSuccess) onSuccess(); // callback
+        onRequestClose(); 
+        if (onSuccess) onSuccess(); 
       }
     } catch (error) {
       if (error instanceof yup.ValidationError) {
@@ -147,7 +150,7 @@ const ModalCadastroUsuario = ({ isOpen, onRequestClose, onSuccess }) => {
         content: {
           borderRadius: "15px",
           maxWidth: "60%",
-          height: "fit-content",
+          height:"50%",
           margin: "auto",
           padding: 0,
           display: "flex",
