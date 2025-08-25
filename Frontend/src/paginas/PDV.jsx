@@ -205,7 +205,7 @@ const PDV = ({ onMenuClick }) => {
   const [modalPagamento, setModalPagamento] = useState(false);
   const [modalCash, setModalCash] = useState(false);
   const [tipo, setTipo] = useState("");
-  const [valor_recebido, setValor_Recebido] = useState("");
+  const [valor_recebido, setValor_Recebido] = useState("0.00");
   // const [status, setStatus] = useState("");
   const [pagamentos, setPagamentos] = useState([]);
   const [modalPreco_Recebido, setModalPreco_Recebido] = useState(false);
@@ -1062,23 +1062,24 @@ const nomeMesa =  mesaCash === "bolcao" ? clienteCash : nomeLocal;
         const res = await apiAcai.get(`stock/serach/id?id=${id}`);
         if (res.status === 200) {
           const produto = res.data.message[0];
-          //console.log("eu", produto);
+          console.log("eu", produto.sd);
           if (produto.id === 1) {
             setInsersaoManual(true);
             setUnino(kgacai);
             setNome(produto.product);
             setProduto(produto.id);
-            setQuantidadeEstoque(produto.quantidade);
+            setQuantidadeEstoque(produto.sd);
             setPrecoUnitario(produto.p_venda);
           } else {
-            abrirModalPesquisa(false);
-            if (parseFloat(produto.quantidade) > 0) {
+
+            if (parseFloat(produto.sd) > 0) {
               setNome(produto.product);
               setPrecoUnitario(produto.p_venda);
               setProduto(produto.id);
               setQuantidade(produto.quantidade);
               setQuantidadeEstoque(produto.quantidade);
-              setModalAdicionarProdudoCel(true);
+              
+              //setModalAdicionarProdudoCel(true);
             } else {
               setNome("");
               setPrecoUnitario("");
@@ -1822,16 +1823,13 @@ const nomeMesa =  mesaCash === "bolcao" ? clienteCash : nomeLocal;
                   type="number"
                   onChange={(e) => {
                     setProduto(e.target.value);
-                    verificarCodigoProduto(e.target.value);
-                    carregandoEstoque(e.target.value);
                   }}
-                  onKeyDown={(e) => {
-                    if (e.key === "Enter") {
-                      e.preventDefault();
-                      handleProdutoSelecionado(e);
-                    }
-                  }}
-                  value={produto}
+                   onKeyDown={(e) => {
+                if (e.key === "Enter") {
+                  verificarCodigoProduto(produto); 
+                  carregandoEstoque(produto);
+                  }
+                }}
                 />
 
                 <Modal
